@@ -69,9 +69,12 @@ def get_dataset_811(config):
         df_test = df.loc[df['Fold@811'] == 2]
 
         for omic in config.omic_list:
-            data_dict['train'][omic] = df_train[[x for x in df_train.columns.get_values() if omic in x]]
-            data_dict['valid'][omic] = df_valid[[x for x in df_valid.columns.get_values() if omic in x]]
-            data_dict['test'][omic] = df_test[[x for x in df_test.columns.get_values() if omic in x]]
+            # data_dict['train'][omic] = df_train[[x for x in df_train.columns.get_values() if omic in x]]
+            # data_dict['valid'][omic] = df_valid[[x for x in df_valid.columns.get_values() if omic in x]]
+            # data_dict['test'][omic] = df_test[[x for x in df_test.columns.get_values() if omic in x]]
+            data_dict['train'][omic] = df_train[[x for x in df_train.columns if omic in x]]
+            data_dict['valid'][omic] = df_valid[[x for x in df_valid.columns if omic in x]]
+            data_dict['test'][omic] = df_test[[x for x in df_test.columns if omic in x]]
             data_dict['train'][omic + '_mask'] = mf.loc[df_train.index]
             data_dict['valid'][omic + '_mask'] = mf.loc[df_valid.index]
             data_dict['test'][omic + '_mask'] = mf.loc[df_test.index]
